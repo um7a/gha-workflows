@@ -1,0 +1,23 @@
+name: 'Node.js CI Composite action'
+description: 'Node.js CI'
+inputs:
+  node-version:
+    description: 'Node.js version to use'
+    required: false
+    default: latest
+
+runs:
+  using: 'composite'  # Specify this is a composite action
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Use Node.js "${{ inputs.node-version }}"
+      uses: actions/setup-node@v4
+      with:
+        node-version: "${{ inputs.node-version }}"
+    - name: Run ci
+      run: npm ci
+    - name: Run build
+      run: npm run build --if-present
+    - name: Run test
+      run: npm test
