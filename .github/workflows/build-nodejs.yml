@@ -2,6 +2,12 @@ name: Node.js CI
 
 on:
   workflow_call:
+    inputs:
+      node-version:
+        type: string
+        description: 'Node.js version to use'
+        required: false
+        default: latest
 
 jobs:
   build:
@@ -9,10 +15,10 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-    - name: Use Node.js latest
+    - name: Use Node.js ${{ inputs['node-version'] }}
       uses: actions/setup-node@v4
       with:
-        node-version: latest
+        node-version: ${{ inputs['node-version'] }}
     - name: Run ci
       run: npm ci
     - name: Run build
