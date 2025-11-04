@@ -17,7 +17,10 @@ runs:
         node-version: "${{ inputs.node-version }}"
     - name: Run ci
       run: npm ci
+      shell: bash
     - name: Run build
       run: npm run build --if-present
+      shell: bash
     - name: Run test
       run: npm test
+      shell: bash
